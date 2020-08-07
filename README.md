@@ -1,6 +1,6 @@
 # Fluid Inclusions Programs
 
-Isochore.py:
+ISOCHORE.PY:
 Isochore.py is a command-line Python program written in Python 3 that calculates fluid inclusion isochores for a
 fluid inclusion in the system NaCl-H2O. References: Bodnar & Vytik (1994) and Atkinson (2002).
 Homogenization temperature (Th) values up to 484 °C
@@ -19,7 +19,7 @@ Access the the directory where isochore.py is stored
 In the terminal prompt, execute: 'python isochore.py'
 The results are saved as a CSV file in the same directory
 
-Isochore.py:
+ISOCHORE.PY:
 Isochore.py is a command-line Python program written in Python 3 that calculates fluid inclusion isochores for a
 fluid inclusion in the system NaCl-H2O. References: Bodnar & Vytik (1994) and Atkinson (2002).
 Homogenization temperature (Th) values up to 484 °C
@@ -40,7 +40,7 @@ Access the the directory where isochore.py is stored
 In the terminal prompt, execute: 'python isochore.py'
 The results are saved as a CSV file in the same directory
 
-Salinity.py:
+SALINITY.PY
 Salinity.py is command-line Python program written in Python 3 that calculates fluid inclusion salinities 
 for several fluid inclusions simultaneously.
 This software calculate salinities using ice-melting temperatures for aqueous-electrolitic fluids 
