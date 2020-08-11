@@ -22,7 +22,7 @@
 # Isochore.py v.0.1.1
 # Isochore.py is a command-line Python program written in Python 3 that calculates fluid inclusion isochores for a
 # fluid inclusion in the system NaCl-H2O.
-# Homogenization temperature (Th) values up to 484 °C
+# Homogenization temperature (Th) values up to 700 °C
 # Salinity range: 0 to 40 mass %. equivalent in NaCl
 
 # REFERENCES:
