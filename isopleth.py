@@ -21,7 +21,7 @@
 # ABOUT:
 # Isopleth.py v 0.1.1
 # Isopleth.py is a command-line Python program written in Python 3 that calculates fluid inclusion isopleth for a
-# fluid inclusion in the system NaCl-H2O. References: Atkinson (2002)
+# fluid inclusion in the system NaCl-H2O.
 # Temperature range: -21.2 to 484 °C
 # Salinity range: 0 to 100 mass %. equivalent in NaCl
 
