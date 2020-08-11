@@ -1,5 +1,3 @@
-# MIT License
-
 # Copyright (c) 2020 Andre Luiz Silva Pestilho
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,6 +19,7 @@
 # SOFTWARE.
 
 # ABOUT:
+# Isopleth.py v 0.1.1
 # Isopleth.py is a command-line Python program written in Python 3 that calculates fluid inclusion isopleth for a
 # fluid inclusion in the system NaCl-H2O. References: Atkinson (2002)
 # Temperature range: -21.2 to 484 °C
@@ -30,6 +29,13 @@
 
 # Atkinson, A.B.J., 2002. A Model for the PTX Properties of H2O-NaCl [Master Thesis]. 
 # Virginia Polytechnic Institute and State University, Blacksburg, Virginia, USA.
+
+# Bodnar, R.J., Vityk, M.O., 1994. Interpretation of microthermometric data for H2O-NaCl fluid inclusions, in: 
+# De Vivo, B., Frezzotti, M.L. (Eds.), Fluid Inclusions in Minerals, Methods and Applications. 
+#Virginia Tech Blackburg, pp. 117–130.
+
+# Knight, C.L., Bodnar, R.J., 1989. Synthetic fluid inclusions: IX. Critical PVTX properties of NaCl-H2O solutions. 
+# Geochimica et Cosmochimica Acta 53, 3–8. doi:10.1016/0016-7037(89)90267-6
 
 # USAGE:
 
@@ -68,7 +74,7 @@ def getPh(Temperature, Salinity):
             + 4.28981312806579 * (T ** 3) * (X ** 4) + 0.115824432759682 * (T ** 4) * (X ** 2) 
             - 0.147543794540513 * (T ** 4) * (X ** 3) - 0.000792743415349166 * (T ** 5) * X + W)
 
-    else:
+    elif Temperature < 484:
 
         logPh = (-7.250911394178014 + 52.7356253268118 * X - 95.139589091999 * (X ** 2) 
             + 237.001333358832 * (X ** 3) - 270.853923550159 * (X ** 4) - 645.843502315573 * (X ** 6) 
@@ -82,6 +88,23 @@ def getPh(Temperature, Salinity):
             - 0.436696998416016 * (T ** 3) * (X ** 1) + 0.27654361988714 * (T ** 3) * (X ** 2) 
             - 0.0074586977134027 * (T ** 4) * (X ** 3) + 0.000828114542697018 * (T ** 5) * X 
             + 0 * (T ** 6) * X + W)
+    
+    else:
+
+        logPh = (-10.1708289018151 + (11.2757426837744 * X ** 2) - 36.8724870227751 * (X ** 3) 
+            + 194.960961125252 * (X ** 4) - 412.422321803683 * (X ** 5) + 386.510614816185 * (X ** 6) 
+            - 139.824224670799 * (X ** 7) + 4.7809083340614 * T 
+            - 0.739844995911952 * (T ** 2) + 0.06103819662666580000 * (T ** 3) 
+            - 0.00273833143331212000 * (T ** 4) + 0.00008040575345729920 * (T ** 5) 
+            - 0.00000127759502052200 * (T ** 6) + 0.00000000897506220730 * (T ** 7) 
+            + -0.40967075242513 * T * X - 4.54787095348135 * T * (X ** 2) 
+            + 7.95552629364737 * T * (X ** 4) - 6.337018268058654 * T * (X ** 5) 
+            + 0.988511643702363 * T * (X ** 6) + 0.253297767997384 * (T ** 2) * X 
+            + 0.47135407604605 * (T ** 2) * (X ** 2) - 0.945923182349318 * (T ** 2) * (X ** 3) 
+            + 0.546929925768266 * (T ** 2) * (X ** 4) - 0.0345961482768031 * (T ** 3) * X 
+            + 0.0366507031096144 * (T ** 3) * (X ** 2) - 0.0221690359176769 * (T ** 3) * (X ** 3) 
+            + 0.000309690020876693 * (T ** 4) * X + 0.000111317870749135 * (T ** 4) * (X ** 3)
+            - 0.000005651762407103 * (T ** 5) * X + W)
 
     Ph = 10 ** logPh
 
@@ -95,12 +118,12 @@ def main():
 
     print('Isopleth.py: Command-line program to calculate fluid inclusion isopleths in the system NaCl-H2O')
     print('Reference: Bodnar & Vytik (1994) and Atkinson (2002)')
-    print('Temperature range: -21.2 to 484 °C')
+    print('Temperature range: -21.2 to 1500 °C')
     print('Salinity range: 0 to 100 mass %. equivalent in NaCl')
     print('Type the paramters to calculate isopleths in the system H2O-NaCl bellow:') 
 
     while True:
-        Salinity = input('Salinity (mass %. eq. in NaCl: ')
+        Salinity = input('Salinity (mass %. eq. in NaCl): ')
         if not Salinity:
             continue
         elif Salinity.isalpha():
@@ -113,19 +136,6 @@ def main():
             break
 
     while True:
-        minT = input('Minimum temperature (°C): ')
-        if not minT:
-            continue
-        elif minT.isalpha():
-            continue
-        elif minT == '-' or minT == '+' or minT == ',' or minT == '.':
-            continue
-        elif int(minT) < 0:
-            continue
-        else:
-            break
-
-    while True:
         maxT = input('Maximum temperature (°C): ')
         if not maxT:
             continue
@@ -133,7 +143,24 @@ def main():
             continue
         elif maxT == '-' or maxT == '+' or maxT == ',' or maxT == '.':
             continue
-        elif int(maxT) < 0:
+        elif float(maxT) < -21.2:
+            continue
+        elif int(maxT) > 1500:
+            continue
+        else:
+            break
+    
+    while True:
+        minT = input('Minimum temperature (°C): ')
+        if not minT:
+            continue
+        elif minT.isalpha():
+            continue
+        elif minT == '-' or minT == '+' or minT == ',' or minT == '.':
+            continue
+        elif float(minT) < -21.2:
+            continue
+        elif int(minT) > 1500:
             continue
         elif int(maxT) < int(minT):
             continue
@@ -141,7 +168,7 @@ def main():
             break
 
     while True:
-        stepT = input('Temperature step (°C): ')
+        stepT = input('Temperature interval (°C): ')
         if not stepT:
             continue
         elif stepT.isalpha():
@@ -177,8 +204,24 @@ def main():
     Precision = int(Precision)
 
     Temperature,  Pressure, data = [], [], []
+    
+    if Salinity <= 30:
 
-    for i in range(minT, (maxT+stepT), stepT):
+        Tc = 374.1 + (8.8 * Salinity + 0.1771 * Salinity ** 2 - 0.0211 * Salinity ** 3 
+            + 7.334 * (10 ** -4) *(Salinity ** 4))
+
+    else:
+
+        Tc = 586.5 - (20.647 * Salinity) + (1.119 * Salinity ** 2) - (6.369 * (10 ** -4) * Salinity ** 3)
+
+    print('Critical temperature(°C): ', round(Tc, 2))
+
+    if maxT > Tc:
+
+        maxT = round(Tc)
+        print("Max temperature changed to critical temperature.")
+
+    for i in range(minT, maxT, stepT):
         Temperature.append(i)
 
     for i,T in enumerate(Temperature):
@@ -193,7 +236,7 @@ def main():
     data.insert(0, header)
 
     while True:
-        newName = input("File Name:")
+        newName = input("File name (format not required):")
         if not newName:
             continue
         else:
